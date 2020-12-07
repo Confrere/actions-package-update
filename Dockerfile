@@ -10,8 +10,14 @@ LABEL "com.github.actions.description"="Upgrades your package.json dependencies 
 LABEL "com.github.actions.icon"="corner-right-up"
 LABEL "com.github.actions.color"="gray-dark"
 
+# install NVM and set the node version to 12
+RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash && \
+  . ~/.profile \
+  nvm install 12
+
 RUN apt-get update && apt-get install -y --no-install-recommends -y git
 RUN yarn global add npm-check-updates
 RUN yarn global add actions-package-update
+
 
 ENTRYPOINT [ "actions-package-update" ]
